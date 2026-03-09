@@ -1,0 +1,70 @@
+// Theme data class
+data class Theme(val name: String, val backgroundLabel: String, val textLabel: String)
+
+// Function to render a themed card
+fun renderCard(title: String, subtitle: String, theme: Theme): String {
+    return "[Theme: ${theme.name} | BG: ${theme.backgroundLabel} | Text: ${theme.textLabel}]\n" +
+           "Card: $title (sub: $subtitle)"
+}
+
+// Function to generate progress animation frames
+fun animateProgress(totalSteps: Int, width: Int): List<String> {
+    val frames = mutableListOf<String>()
+
+    for (step in 0 until totalSteps) {
+        val filled = ((step + 1) * width) / totalSteps
+        val empty = width - filled
+
+        val bar = "[" + "#".repeat(filled) + "-".repeat(empty) + "]"
+        val percent = ((step + 1) * 100) / totalSteps
+
+        frames.add("$bar $percent%")
+    }
+
+    return frames
+}
+
+// Function to apply themes and print animation
+fun applyThemeAndAnimate(
+    title: String,
+    subtitle: String,
+    themes: List<Theme>,
+    steps: Int,
+    width: Int
+) {
+    for (theme in themes) {
+        println("--- Applying: ${theme.name} ---")
+
+        val card = renderCard(title, subtitle, theme)
+        println(card)
+
+        val frames = animateProgress(steps, width)
+        for (frame in frames) {
+            println(frame)
+        }
+    }
+}
+
+// Main function
+fun main() {
+
+    val lightTheme = Theme(
+        name = "Light",
+        backgroundLabel = "SoftWhite",
+        textLabel = "DarkGray"
+    )
+
+    val darkTheme = Theme(
+        name = "Dark",
+        backgroundLabel = "DeepBlack",
+        textLabel = "LightGray"
+    )
+
+    applyThemeAndAnimate(
+        title = "Welcome - Learn theming",
+        subtitle = "Simulate Material",
+        themes = listOf(lightTheme, darkTheme),
+        steps = 10,
+        width = 20
+    )
+}
