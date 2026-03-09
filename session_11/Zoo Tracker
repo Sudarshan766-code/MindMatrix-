@@ -1,0 +1,83 @@
+// 🦁 Zoo Animal Tracker
+
+// 1️⃣ Abstract class
+abstract class Animal(val name: String) {
+    abstract fun makeSound()
+}
+
+// 3️⃣ Interface
+interface Feedable {
+    fun feed(food: String)
+}
+
+// 2️⃣ Lion subclass
+class Lion(name: String) : Animal(name), Feedable {
+
+    override fun makeSound() {
+        println("$name: Roar!")
+    }
+
+    fun hunt() {
+        println("$name is hunting in the jungle.")
+    }
+
+    override fun feed(food: String) {
+        println("$name eats $food.")
+    }
+}
+
+// 2️⃣ Elephant subclass
+class Elephant(name: String) : Animal(name) {
+
+    override fun makeSound() {
+        println("$name: Trumpet!")
+    }
+
+    fun sprayWater() {
+        println("$name sprays water from its trunk.")
+    }
+}
+
+// 2️⃣ Parrot subclass
+class Parrot(name: String) : Animal(name), Feedable {
+
+    override fun makeSound() {
+        println("$name: Chirp!")
+    }
+
+    fun fly() {
+        println("$name is flying in the sky.")
+    }
+
+    override fun feed(food: String) {
+        println("$name eats $food.")
+    }
+}
+
+// 4️⃣ Function to display zoo animals
+fun displayZoo(animals: List<Animal>) {
+    println("--- Zoo Tracker ---")
+    for (animal in animals) {
+        animal.makeSound()
+    }
+}
+
+// 5️⃣ Main function
+fun main() {
+
+    val lion = Lion("Lion")
+    val elephant = Elephant("Elephant")
+    val parrot = Parrot("Parrot")
+
+    val zooAnimals: List<Animal> = listOf(lion, elephant, parrot)
+
+    // Display sounds (polymorphism)
+    displayZoo(zooAnimals)
+
+    // Feeding animals
+    lion.feed("meat")
+    parrot.feed("seeds")
+
+    // Extra behaviors
+    elephant.sprayWater()
+}
